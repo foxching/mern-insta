@@ -4,6 +4,24 @@ const Post = require("../../model/Post");
 const auth = require("../../middleware/auth");
 
 /**
+ * @route   GET api/posts
+ * @desc    get all posts
+ */
+
+router.get("/allPost", auth, async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate("postedBy", "name")
+      .exec();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ err: err.msg });
+  }
+});
+
+
+
+/**
  * @route   POST api/posts
  * @desc    Create a Post
  */
