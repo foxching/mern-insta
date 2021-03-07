@@ -19,7 +19,21 @@ router.get("/allPost", auth, async (req, res) => {
   }
 });
 
+/**
+ * @route   GET api/posts
+ * @desc    get all posts by signed user
+ */
 
+router.get("/myPost", auth, async (req, res) => {
+  try {
+    const posts = await Post.find({ postedBy: req.user.id })
+      .populate("postedBy", "name")
+      .exec();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ err: err.msg });
+  }
+});
 
 /**
  * @route   POST api/posts
