@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -7,7 +7,10 @@ const Login = () => {
         <h2>Instagram</h2>
         <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
-        <button class="btn waves-effect waves-light blue lighten-2" type="submit" >
+        <button
+          class="btn waves-effect waves-light blue darken-1"
+          type="submit"
+        >
           Login
         </button>
         <h5>
@@ -18,7 +21,7 @@ const Login = () => {
         </h6>
       </div>
     </div>
-  )
+  );
 };
 
 export default Login;
