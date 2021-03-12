@@ -32,6 +32,7 @@ router.post("/login", async (req, res) => {
         (err, token) => {
           if (err) throw err;
           res.json({
+            msg:"Successfully login",
             token,
             user: {
               id: user.id,
@@ -77,7 +78,8 @@ router.post("/signup", async (req, res) => {
             { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
-              res.json({
+              res.status(200).json({
+                msg:"Successfully signup",
                 token,
                 user: {
                   id: user.id,

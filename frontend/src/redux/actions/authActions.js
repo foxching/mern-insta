@@ -10,7 +10,7 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL
 } from '../constants/types';
-
+import M from 'materialize-css'
 
 
 // load user
@@ -20,13 +20,15 @@ export const loadUser = () => (dispatch, getState) => {
 
     axios
         .get('/api/auth/user', tokenConfig(getState))
-        .then(res =>
+        .then(res => {
             dispatch({
                 type: USER_LOADED,
                 payload: res.data
             })
+        }   
         )
         .catch(err => {
+            
             dispatch(returnErrors(err.response.data, err.response.status));
             dispatch({
                 type: AUTH_ERROR
@@ -48,14 +50,17 @@ export const register = ({ name, email, password }) => dispatch => {
     const body = JSON.stringify({ name, email, password });
 
     axios
-        .post('/api/auth/register', body, config)
-        .then(res =>
+        .post('/api/auth/signup', body, config)
+        .then(res => {
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: res.data
             })
+             M.toast({html: res.data.msg, classes:"#43a047 green darken-1"})
+            }
         )
         .catch(err => {
+            M.toast({html: err.response.data.msg, classes:"#c62828 red darken-3"})
             dispatch(
                 returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
             );
@@ -81,13 +86,16 @@ export const login = ({ email, password }) => dispatch => {
 
     axios
         .post('/api/auth/login', body, config)
-        .then(res =>
+        .then(res => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
             })
+            M.toast({html: res.data.msg, classes:"#43a047 green darken-1"})
+        }   
         )
         .catch(err => {
+            M.toast({html: err.response.data.msg, classes:"#c62828 red darken-3"})
             dispatch(
                 returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
             );
@@ -101,8 +109,7 @@ export const login = ({ email, password }) => dispatch => {
 // Logout User
 export const logout = () => dispatch => {
     dispatch({ type: LOGOUT_SUCCESS })
-    //clear user todos
-    
+    //clear user todos  
 };
 
 

@@ -22,7 +22,7 @@ const CreatePost = () => {
           <input className="file-path validate" type="text" />
         </div>
       </div>
-      <button class="btn waves-effect waves-light blue darken-1" type="submit">
+      <button className="btn waves-effect waves-light blue darken-1" type="submit">
         Login
       </button>
     </div>
