@@ -1,5 +1,5 @@
 import {useEffect} from "react"
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter,Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Navbar from "./components/Navbar";
@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
+import { PublicRoute } from "./components/routes/PublicRoute";
+import { PrivateRoute } from "./components/routes/PrivateRoute";
 
 import store from "./redux/store";
 import { loadUser } from './redux/actions/authActions'
@@ -25,11 +27,11 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/signin" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/create" component={CreatePost} />
+          <PrivateRoute exact path="/" component={Home} />
+          <PublicRoute path="/signin" component={Login} />
+          <PublicRoute path="/signup" component={Signup} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/create" component={CreatePost} />
         </Switch>
       </BrowserRouter>
     </Provider>
