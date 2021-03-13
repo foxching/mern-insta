@@ -54,7 +54,7 @@ exports.register = (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-        return res.status(422).json({ msg: "Please required all fields" });
+        return res.status(422).json({ msg: "All fields are required" });
     }
 
     User.findOne({ email }).then(user => {
