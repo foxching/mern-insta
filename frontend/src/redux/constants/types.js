@@ -9,3 +9,6 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
+
+export const LOAD_POSTS = "LOAD_POSTS"
+export const ADD_POST = "ADD_POST"
