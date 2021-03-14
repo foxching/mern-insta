@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
-import Post from "../components/Post/Post"
+import PostLarge  from "../components/Post/PostLarge"
 import { getAllPost } from "../redux/actions/postAction"
 
 
 const Home = () => {
   const dispatch = useDispatch()
   const loading = useSelector(state => state.post.loading)
-  const posts = useSelector(state => state.post.posts);
+  const posts = useSelector(state => state.post.allPosts);
 
   useEffect(() => {
     dispatch(getAllPost())
@@ -15,7 +15,7 @@ const Home = () => {
 
 
   let postsMarkup = !loading && posts.length > 0 ? (
-    posts.map(post => <Post key={post._id} post={post} />)
+    posts.map(post => <PostLarge key={post._id} post={post} />)
   ) : (
     <p>Loading...</p>
   );

@@ -1,7 +1,9 @@
-import { ADD_POST,LOADING_POSTS,LOAD_POSTS } from '../constants/types'
+import { ADD_POST,LOADING_POSTS,LOAD_ALL_POSTS,LOAD_USER_POSTS,LOAD_MY_POSTS } from '../constants/types'
 
 const initialState = {
-  posts:[],
+  allPosts:[],
+  myPosts:[],
+  userPosts:[],
   loading:false
 }
 
@@ -12,13 +14,19 @@ const postReducer = (state = initialState, action) => {
       case ADD_POST:
         return {
           ...state,
-          posts: [action.payload, ...state.posts]
+          allPosts: [action.payload, ...state.allPosts]
         }
-      case LOAD_POSTS:
+      case LOAD_ALL_POSTS:
         return {
           ...state,
           loading:false,
-          posts:action.payload
+          allPosts:action.payload
+        }
+      case LOAD_MY_POSTS:
+        return {
+          ...state,
+          loading:false,
+          myPosts:action.payload
         }
       default:
         return state;

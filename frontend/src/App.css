@@ -29,12 +29,6 @@ h2 {
   box-shadow: 0 1px 0 0 rgb(8, 93, 252) !important;
 }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 .item {
   width: 30%;
 }

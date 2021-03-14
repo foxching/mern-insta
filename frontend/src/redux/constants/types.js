@@ -9,6 +9,8 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-export const LOADING_POSTS = "LOADING_POSTS"
-export const LOAD_POSTS = "LOAD_POSTS"
+export const LOADING_POSTS = "LOADING_POSTS";
+export const LOAD_ALL_POSTS = "LOAD_ALL_POSTS";
+export const LOAD_MY_POSTS = "LOAD_MY_POSTS";
+export const LOAD_USER_POSTS = "LOAD_USER_POSTS";
 export const ADD_POST = "ADD_POST"
