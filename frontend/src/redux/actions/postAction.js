@@ -1,9 +1,21 @@
 import axios from 'axios';
-import { ADD_POST } from '../constants/types';
+import { ADD_POST, LOADING_POSTS, LOAD_POSTS } from '../constants/types';
 import { tokenConfig } from "./authActions";
 import { returnErrors} from "./errorActions"
 import M from 'materialize-css'
 
+
+export const getAllPost = () => (dispatch, getState) => {
+    dispatch({ type: LOADING_POSTS });
+    axios
+        .get("/api/post/allPost", tokenConfig(getState))
+        .then(res => {
+            dispatch({ type: LOAD_POSTS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status))
+        })
+}
 
 
 export const createPost = (post,history) => (dispatch,getState) => {
