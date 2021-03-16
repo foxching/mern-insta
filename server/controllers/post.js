@@ -97,3 +97,34 @@ exports.toggleLikeUnlikePost = async (req, res) => {
     res.status(500).json({ err: err.msg });
   }
 };
+
+/**
+ * @route   PUT api/posts
+ * @desc    add comment to post
+ */
+
+exports.createComments = async (req, res) => {
+  const comment = {
+    text: req.body.text,
+    postedBy: req.user.id
+  };
+
+  try {
+    const post = await Post.findOne({ _id: ObjectId(req.body.postId) });
+    if (post == null) {
+      res.status(404).json({ msg: "Post not found" });
+    }
+    await Post.updateOne(
+      { _id: ObjectId(req.body.postId) },
+      {
+        $push: { comments: comment }
+      },
+      {
+        new: true
+      }
+    );
+    res.status(200).json({ post, msg: "Commented Successfully" });
+  } catch (error) {
+    res.status(500).json({ err: err.msg });
+  }
+};
