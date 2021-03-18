@@ -4,7 +4,8 @@ import {
   LOAD_ALL_POSTS,
   LOAD_USER_POSTS,
   LOAD_MY_POSTS,
-  TOGGLE_LIKE_UNLIKE_POST
+  TOGGLE_LIKE_UNLIKE_POST,
+  ADD_COMMENT
 } from "../constants/types";
 
 const initialState = {
@@ -51,7 +52,21 @@ const postReducer = (state = initialState, action) => {
           }
         })
       };
-
+    case ADD_COMMENT:
+      return {
+        ...state,
+        allPosts:state.allPosts.map(post => {
+          if(post._id === action.payload.postId){
+           return {
+            ...post,
+            comments:[...post.comments, action.payload.comment]
+           }
+          }else {
+            return post
+          }
+        })
+      }
+      //console.log(action.payload)
     default:
       return state;
   }

@@ -5,7 +5,8 @@ import {
   LOAD_ALL_POSTS,
   LOAD_USER_POSTS,
   LOAD_MY_POSTS,
-  TOGGLE_LIKE_UNLIKE_POST
+  TOGGLE_LIKE_UNLIKE_POST,
+  ADD_COMMENT
 } from "../constants/types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
@@ -61,3 +62,18 @@ export const togglelikeUnLikePost = postId => (dispatch, getState) => {
       console.log(err);
     });
 };
+
+
+export const createComment = (text, postId)  => (dispatch, getState) => {
+  const userId = getState().auth.user._id;
+  axios
+    .put("/api/post/comment", {text, postId}, tokenConfig(getState))
+    .then(res => {
+      const comment =  res.data.post.comments[res.data.post.comments.length - 1]
+      dispatch({ type: ADD_COMMENT, payload: { comment, postId, } });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      console.log(err);
+    });
+}
