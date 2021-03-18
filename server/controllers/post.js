@@ -10,6 +10,7 @@ exports.getAllPost = async (req, res) => {
   try {
     const posts = await Post.find()
       .populate("postedBy", "name")
+      .populate("comments.postedBy","name")
       .exec();
     res.status(200).json(posts);
   } catch (err) {
@@ -109,22 +110,18 @@ exports.createComments = async (req, res) => {
     postedBy: req.user.id
   };
 
-  try {
-    const post = await Post.findOne({ _id: ObjectId(req.body.postId) });
-    if (post == null) {
-      res.status(404).json({ msg: "Post not found" });
-    }
-    await Post.updateOne(
-      { _id: ObjectId(req.body.postId) },
-      {
-        $push: { comments: comment }
-      },
-      {
-        new: true
-      }
-    );
-    res.status(200).json({ post, msg: "Commented Successfully" });
-  } catch (error) {
-    res.status(500).json({ err: err.msg });
+  try{
+    const post = await Post.findOneAndUpdate(req.body.postId,{
+      $push:{comments:comment}
+    },{
+        new:true
+    })
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
+    .exec()
+    res.status(200).json({post, msg:"Commented successfully"})
+  }catch(err){
+    return res.status(422).json({error:err})
   }
+  
 };
