@@ -1,6 +1,7 @@
-import {useState} from "react"
+import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { togglelikeUnLikePost,createComment } from "../../redux/actions/postAction";
+import DeleteModal from "../../components/Modal/DeleteModal"
+import { togglelikeUnLikePost,createComment} from "../../redux/actions/postAction";
 
 const Post = props => {
   const dispatch = useDispatch();
@@ -15,9 +16,16 @@ const Post = props => {
     setComment("")
   }
 
+
   return (
     <div className="card home-card">
-      <h5>{postedBy.name}</h5>
+      <div style={{display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginTop:0}}>
+       <h5 style={{margin:"0 0 10px 0"}}>{postedBy.name}</h5> 
+        {postedBy._id === userId &&  <button className="waves-effect waves-light btn-flat modal-trigger" data-target={`modal${_id}`}>
+              <i className="material-icons ">delete</i>
+        </button>
+        }
+      </div>
       <div className="card-image">
         <img src={pic} alt={title} />
       </div>
@@ -44,9 +52,10 @@ const Post = props => {
         }
         <form onSubmit={handleSubmitComment} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}} >
           <input type="text" placeholder="add comment.." name="comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-          <button type="submit" className={`${comment == "" ? 'disabled btn-flat blue-text' : "btn-flat blue-text"}`} style={{fontSize:"12px"}}>Post</button>
+          <button type="submit" className={`${comment === "" ? 'disabled btn-flat blue-text' : "btn-flat blue-text"}`} style={{fontSize:"12px"}}>Post</button>
         </form>
       </div>
+      <DeleteModal id={`modal${_id}`}/>
     </div>
   );
 };
