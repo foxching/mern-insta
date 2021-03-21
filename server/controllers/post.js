@@ -40,8 +40,6 @@ exports.getMyPost = async (req, res) => {
  */
 exports.createPost = async (req, res) => {
   const { title, body, pic } = req.body;
-  console.log(req.body);
-
   if (!title || !body || !pic) {
     return res.status(422).json({ msg: "All fields are required" });
   }
@@ -123,5 +121,25 @@ exports.createComments = async (req, res) => {
   }catch(err){
     return res.status(422).json({error:err})
   }
-  
 };
+
+
+
+/**
+ * @route   DELETE posts/
+ * @desc    delete post 
+ */
+
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findOne({_id:req.params.postId})
+    if(post.postedBy.toString() === req.user.id.toString()) {
+      await post.remove()
+      return res.status(201).json({msg:"Post deleted successfully"})
+    }else {
+      return res.status(401).json({msg:"You are not authorized to delete this post"})
+    }
+  } catch (err) {
+    return res.status(500).json({err:err})
+  }
+}

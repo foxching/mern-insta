@@ -6,7 +6,8 @@ const {
   getMyPost,
   createPost,
   toggleLikeUnlikePost,
-  createComments
+  createComments,
+  deletePost
 } = require("../../controllers/post");
 
 router.post("/createPost", auth, createPost);
@@ -18,5 +19,7 @@ router.get("/myPost", auth, getMyPost);
 router.put("/toggleLikeUnlike", auth, toggleLikeUnlikePost);
 
 router.put("/comment", auth, createComments);
+
+router.delete("/deletePost/:postId", auth, deletePost)
 
 module.exports = router;
