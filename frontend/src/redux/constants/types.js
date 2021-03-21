@@ -15,4 +15,5 @@ export const LOAD_MY_POSTS = "LOAD_MY_POSTS";
 export const LOAD_USER_POSTS = "LOAD_USER_POSTS";
 export const ADD_POST = "ADD_POST";
 export const TOGGLE_LIKE_UNLIKE_POST = "TOGGLE_LIKE_UNLIKE_POST";
-export const ADD_COMMENT = "ADD_COMMENT"
+export const ADD_COMMENT = "ADD_COMMENT";
+export const DELETE_POST ="DELETE_POST";

@@ -6,7 +6,8 @@ import {
   LOAD_USER_POSTS,
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
-  ADD_COMMENT
+  ADD_COMMENT,
+  DELETE_POST
 } from "../constants/types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
@@ -65,7 +66,6 @@ export const togglelikeUnLikePost = postId => (dispatch, getState) => {
 
 
 export const createComment = (text, postId)  => (dispatch, getState) => {
-  const userId = getState().auth.user._id;
   axios
     .put("/api/post/comment", {text, postId}, tokenConfig(getState))
     .then(res => {
@@ -76,4 +76,18 @@ export const createComment = (text, postId)  => (dispatch, getState) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       console.log(err);
     });
+}
+
+
+export const deletePost = (postId) => (dispatch, getState) => {
+  axios
+      .delete(`/api/post/deletePost/${postId}`, tokenConfig(getState))
+      .then(res => {
+        dispatch({type:DELETE_POST, payload:postId})
+        M.toast({html: res.data.msg, classes:"#43a047 green darken-1"})
+      })
+      .catch(err => {
+        dispatch(returnErrors(err.response.data, err.response.status));
+        console.log(err);
+      });
 }

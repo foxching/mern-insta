@@ -5,7 +5,8 @@ import {
   LOAD_USER_POSTS,
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
-  ADD_COMMENT
+  ADD_COMMENT,
+  DELETE_POST
 } from "../constants/types";
 
 const initialState = {
@@ -66,10 +67,15 @@ const postReducer = (state = initialState, action) => {
           }
         })
       }
-      //console.log(action.payload)
+    case DELETE_POST:
+      return {
+        ...state, 
+        allPosts:[...state.allPosts.filter(allPost => allPost._id !== action.payload)]
+      }
     default:
       return state;
   }
+
 };
 
 export default postReducer;
