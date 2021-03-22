@@ -96,7 +96,7 @@ exports.register = (req, res) => {
  * @desc    Get User Data
  * @access  Private
  */
-exports.getUser = (req, res) => {
+exports.getLoggedUser = (req, res) => {
   User.findById(req.user.id)
     .select("-password")
     .then(user => {
