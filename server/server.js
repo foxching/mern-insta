@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 //routes
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/post", require("./routes/api/post"));
+app.use("/api/user", require("./routes/api/user"));
 
 //mongodb
 const config = require("config");
