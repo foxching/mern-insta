@@ -1,4 +1,5 @@
 import { useState} from "react"
+import {Link} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import DeleteModal from "../../components/Modal/DeleteModal"
 import { togglelikeUnLikePost,createComment} from "../../redux/actions/postAction";
@@ -20,7 +21,7 @@ const Post = props => {
   return (
     <div className="card home-card">
       <div style={{display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginTop:0}}>
-       <h5 style={{margin:"0 0 10px 0"}}>{postedBy.name}</h5> 
+       <Link to={`/profile/${postedBy.name}`}><h5 style={{margin:"0 0 10px 0"}}>{postedBy.name}</h5> </Link>
         {postedBy._id === userId &&  <button className="waves-effect waves-light btn-flat modal-trigger" data-target={`modal${_id}`}>
               <i className="material-icons ">delete</i>
         </button>
@@ -47,7 +48,7 @@ const Post = props => {
         <p>{body}</p>
         {
           comments.map(comment => (
-            <h6 key={comment._id}><span style={{fontWeight:"500"}}>{comment.postedBy.name}</span> {comment.text}</h6>
+            <h6 key={comment._id}><span style={{fontWeight:"500"}}><Link to={`/profile/${comment.postedBy.name}`}>{comment.postedBy.name}</Link></span> {comment.text}</h6>
           ))                       
         }
         <form onSubmit={handleSubmitComment} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}} >

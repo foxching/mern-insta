@@ -1,4 +1,4 @@
-const ProfileInfo = () => {
+const ProfileInfo = ({name, loading}) => {
   return (
         <div
         style={{
@@ -20,7 +20,7 @@ const ProfileInfo = () => {
             />
           </div>
           <div>
-            <h4>Rechie</h4>
+            <h4>{!loading ? name : "...loading"}</h4>
             <div
               style={{
                 display: "flex",

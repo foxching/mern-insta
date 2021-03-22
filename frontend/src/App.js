@@ -30,7 +30,7 @@ const App = () => {
           <PrivateRoute exact path="/" component={Home} />
           <PublicRoute path="/signin" component={Login} />
           <PublicRoute path="/signup" component={Signup} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/profile/:username" component={Profile} />
           <PrivateRoute path="/create" component={CreatePost} />
         </Switch>
       </BrowserRouter>
