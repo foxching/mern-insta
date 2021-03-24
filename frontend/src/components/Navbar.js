@@ -7,7 +7,6 @@ const Navbar = () => {
   const isAuthenticated = useSelector(state => !!state.auth.token);
   const {user}= useSelector(state => state.auth)
 
-
   const handleLogout = () => {
     dispatch(logout())
   }
@@ -17,7 +16,7 @@ const Navbar = () => {
      return (
       <>
         <li key="1">
-        <Link to={`/profile/${user.name}`}>Profile</Link>
+        <Link to={`/profile/${user !== null && user.name}`}>Profile</Link>
         </li>
         <li key="2">
           <Link to="/create">Create Post</Link>
