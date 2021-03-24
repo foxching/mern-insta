@@ -18,6 +18,7 @@ exports.login = (req, res) => {
 
   User.findOne({ email }).then(user => {
     if (!user) return res.status(400).json({ msg: "User does not exists" });
+   
 
     //Password validation
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -31,10 +32,12 @@ exports.login = (req, res) => {
           res.json({
             msg: "Successfully login",
             token,
-            user: {
-              _id: user.id,
-              name: user.name,
-              email: user.email
+            user:{
+              _id:user._id,
+              name:user.name,
+              email:user.email,
+              followers:user.followers,
+              following:user.following
             }
           });
         }
@@ -77,10 +80,12 @@ exports.register = (req, res) => {
               res.status(200).json({
                 msg: "Successfully signup",
                 token,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  email: user.email
+                user:{
+                  _id:user._id,
+                  name:user.name,
+                  email:user.email,
+                  followers:user.followers,
+                  following:user.following
                 }
               });
             }
@@ -96,10 +101,11 @@ exports.register = (req, res) => {
  * @desc    Get User Data
  * @access  Private
  */
-exports.getLoggedUser = (req, res) => {
-  User.findById(req.user.id)
-    .select("-password")
-    .then(user => {
-      res.status(201).json(user);
-    });
+exports.getLoggedUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password")
+    res.status(201).json(user)
+  } catch (err) {
+    res.status(500).json({err:err})
+  }
 };
