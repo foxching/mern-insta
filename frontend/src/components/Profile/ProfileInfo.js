@@ -1,4 +1,42 @@
-const ProfileInfo = ({name, loading}) => {
+import React from "react";
+import {useDispatch} from "react-redux"
+import {followUser, unFollowUser} from "../../redux/actions/userActions"
+
+const ProfileInfo = ({name, userId, authUserId,  loading, followers,following,  userPosts}) => {
+  const dispatch = useDispatch()
+  
+  //get the liked scream
+	let likedPost = () => {
+		if (followers && followers.find((followerId) => followerId === authUserId)) return true;
+		else return false;
+	};
+
+  //like button component
+	const likeButton = authUserId === userId ? (
+		<button 
+        style={{marginTop:"10px", marginLeft:"15px"}}
+        className="btn waves-effect waves-light #efebe9 brown darken-5 btn-small" 
+    >
+        Edit
+    </button> 
+	) : likedPost() ? (
+    <button 
+      style={{marginTop:"10px", marginLeft:"15px"}}
+      className="btn waves-effect waves-light  red darken-1 btn-small"
+      onClick={() => dispatch(unFollowUser(userId))}
+    >
+    UnFollow
+    </button>
+	) : (
+    <button 
+    style={{marginTop:"10px", marginLeft:"15px"}}
+    className="btn waves-effect waves-light #64b5f6 blue darken-1 btn-small"
+    onClick={() => dispatch(followUser(userId))}
+  >
+    Follow
+  </button>
+	);
+
   return (
         <div
         style={{
@@ -20,7 +58,15 @@ const ProfileInfo = ({name, loading}) => {
             />
           </div>
           <div>
-            <h4>{!loading ? name : "...loading"}</h4>
+            <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
+              {loading  ? "Loading...." : 
+              <React.Fragment>
+              <h4>{ name}</h4>
+              {likeButton}
+              </React.Fragment>
+              }
+            </div>
+           
             <div
               style={{
                 display: "flex",
@@ -28,10 +74,11 @@ const ProfileInfo = ({name, loading}) => {
                 width: "108%"
               }}
             >
-              <h6> 10posts</h6>
-              <h6>10 followers</h6>
-              <h6>5 following</h6>
+              <h6>{userPosts && userPosts.length} posts</h6>
+              <h6>{followers && followers.length} followers</h6> 
+              <h6>{following && following.length} following</h6> 
             </div>
+           
           </div>
         </div>
       </div> 

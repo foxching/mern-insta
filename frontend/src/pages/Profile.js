@@ -11,7 +11,9 @@ const Profile = () => {
   const {username} = useParams()
   const loading = useSelector(state => state.user.isLoading);
   const userPosts = useSelector(state => state.user.userPosts);
+  const authUser = useSelector(state => state.auth.user)
   const user = useSelector(state => state.user.profile)
+
 
   useEffect(() => {
     dispatch(getUserProfile(username))
@@ -26,7 +28,15 @@ const Profile = () => {
 
   return (
     <div style={{ maxWidth: "550px", margin: "0px auto" }}>
-      <ProfileInfo name={user.name} loading={loading} />
+      <ProfileInfo 
+        loading={loading}  
+        authUserId={authUser && authUser._id} 
+        userId={user && user._id}  
+        name={user && user.name} 
+        followers={user && user.followers}  
+        following={user && user.following} 
+        userPosts={userPosts}
+      />
       <div
         style={{
           display: "flex",
