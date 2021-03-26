@@ -3,15 +3,18 @@ const Post = require("../model/Post");
 
 /**
  * @route   GET api/posts
- * @desc    get all posts
+ * @desc    get all posts of user following and own post
  */
 
 exports.getAllPost = async (req, res) => {
+  following = req.user.following
+  following.push(req.user._id)
   try {
-    const posts = await Post.find()
+    const posts = await Post.find({postedBy:{$in:req.user.following}})
       .populate("postedBy", "name")
       .populate("comments.postedBy","name")
       .exec();
+    //console.log(posts)
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ err: err.msg });
