@@ -103,7 +103,7 @@ exports.register = (req, res) => {
  */
 exports.getLoggedUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password")
+    const user = await User.findById(req.user._id).select("-password")
     res.status(201).json(user)
   } catch (err) {
     res.status(500).json({err:err})

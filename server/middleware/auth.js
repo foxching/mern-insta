@@ -1,22 +1,21 @@
 const config = require('config')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+const User = require("../model/User");
 
-
-function auth(req, res, next) {
+module.exports = (req,res,next)=>{
     const token = req.header('x-auth-token')
 
     //check token
     if (!token) return res.status(401).json({ msg: "No token, authorization denied" })
-
-    try {
-        //verify token
-        const decoded = jwt.verify(token, config.get("jwtSecret"))
-        //add user to payload
-        req.user = decoded
-        next()
-    } catch (error) {
-        res.status(400).json({ msg: "Token is invalid" })
-    }
+    jwt.verify(token,config.get("jwtSecret"),(err,payload)=>{
+        if(err){
+         return   res.status(401).json({error:"you must be logged in"})
+        }
+        const {id} = payload
+        User.findById(id).then(userdata=>{
+            req.user = userdata
+            next()
+        })    
+    })
 }
-
-module.exports = auth

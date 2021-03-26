@@ -25,7 +25,7 @@ exports.getAllPost = async (req, res) => {
 
 exports.getMyPost = async (req, res) => {
   try {
-    const posts = await Post.find({ postedBy: req.user.id })
+    const posts = await Post.find({ postedBy: req.user._id })
       .populate("postedBy", "name")
       .exec();
     res.status(200).json(posts);
@@ -48,7 +48,7 @@ exports.createPost = async (req, res) => {
     title,
     body,
     pic,
-    postedBy: req.user.id
+    postedBy: req.user._id
   });
 
   try {
@@ -72,7 +72,7 @@ exports.toggleLikeUnlikePost = async (req, res) => {
     }
     let isLiked = false;
 
-    if (post.likes.includes(req.user.id)) {
+    if (post.likes.includes(req.user._id)) {
       isLiked = true;
     }
 
@@ -80,14 +80,14 @@ exports.toggleLikeUnlikePost = async (req, res) => {
       await Post.updateOne(
         { _id: ObjectId(req.body.postId) },
         {
-          $pull: { likes: req.user.id }
+          $pull: { likes: req.user._id }
         }
       );
     } else {
       await Post.updateOne(
         { _id: ObjectId(req.body.postId) },
         {
-          $push: { likes: req.user.id }
+          $push: { likes: req.user._id }
         }
       );
     }
@@ -105,7 +105,7 @@ exports.toggleLikeUnlikePost = async (req, res) => {
 exports.createComments = async (req, res) => {
   const comment = {
     text: req.body.text,
-    postedBy: req.user.id
+    postedBy: req.user._id
   };
 
   try{
@@ -133,7 +133,7 @@ exports.createComments = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const post = await Post.findOne({_id:req.params.postId})
-    if(post.postedBy.toString() === req.user.id.toString()) {
+    if(post.postedBy.toString() === req.user._id.toString()) {
       await post.remove()
       return res.status(201).json({msg:"Post deleted successfully"})
     }else {

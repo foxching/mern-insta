@@ -28,11 +28,11 @@ exports.getUserProfile = async (req, res) => {
 exports.followUser = async (req, res) => {
     try{
         const user = await User.findOneAndUpdate({ _id: ObjectId(req.body.followId) }, {
-            $push:{followers:req.user.id}
+            $push:{followers:req.user._id}
         },{
             new:true
         })
-        await User.findOneAndUpdate({ _id: ObjectId(req.user.id) }, {
+        await User.findOneAndUpdate({ _id: ObjectId(req.user._id) }, {
             $push:{following:req.body.followId}
         },{
             new:true
@@ -52,11 +52,11 @@ exports.followUser = async (req, res) => {
  exports.unFollowUser = async (req, res) => {
     try{
         const user = await User.findOneAndUpdate({ _id: ObjectId(req.body.unfollowId) }, {
-            $pull:{followers:req.user.id}
+            $pull:{followers:req.user._id}
         },{
             new:true
         })
-        await User.findOneAndUpdate({ _id: ObjectId(req.user.id) }, {
+        await User.findOneAndUpdate({ _id: ObjectId(req.user._id) }, {
             $pull:{following:req.body.unfollowId}
         },{
             new:true
