@@ -1,5 +1,5 @@
 import axios from "axios";
-import {PROFILE_LOADING, PROFILE_LOADED, FOLLOW_USER, UNFOLLOW_USER} from "../constants/types";
+import {PROFILE_LOADING, PROFILE_LOADED, FOLLOW_USER, UNFOLLOW_USER,UPDATE_PROFILE_PHOTO} from "../constants/types";
 import { tokenConfig } from "./authActions";
 
 
@@ -45,6 +45,20 @@ export const unFollowUser = (unfollowId) => (dispatch, getState) => {
     });
 };
 
+
+export const updateProfilePic = (pic) => (dispatch, getState) => {
+  const userId = getState().auth.user._id;
+  axios
+      .put('/api/user/updatephoto', {pic}, tokenConfig(getState))
+      .then(res => {
+        console.log(res.data)
+        dispatch({type:UPDATE_PROFILE_PHOTO, payload:{pic, userId}})
+      })
+      .catch(err => {
+        //dispatch(returnErrors(err.response.data, err.response.status));
+        console.log(err)
+      });
+}
 
 
 

@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux"
 import {followUser, unFollowUser} from "../../redux/actions/userActions"
+import ProfilePhoto from "./ProfilePhoto";
 
 const ProfileInfo = ({name, pic, userId, authUserId,  loading, followers,following,  userPosts}) => {
   const dispatch = useDispatch()
-  
+
+
+
   //get the liked scream
 	let likedPost = () => {
 		if (followers && followers.find((followerId) => followerId === authUserId)) return true;
@@ -37,6 +40,8 @@ const ProfileInfo = ({name, pic, userId, authUserId,  loading, followers,followi
   </button>
 	);
 
+ 
+
   return (
         <div
         style={{
@@ -50,13 +55,7 @@ const ProfileInfo = ({name, pic, userId, authUserId,  loading, followers,followi
             justifyContent: "space-around"
           }}
         >
-          <div>
-            <img
-              style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-              alt=""
-              src={pic}
-            />
-          </div>
+          <ProfilePhoto pic={pic} />
           <div>
             <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
               {loading  ? "Loading...." : 

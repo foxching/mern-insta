@@ -1,5 +1,5 @@
 import {
-  PROFILE_LOADING, PROFILE_LOADED, FOLLOW_USER, UNFOLLOW_USER
+  PROFILE_LOADING, PROFILE_LOADED, FOLLOW_USER, UNFOLLOW_USER,UPDATE_PROFILE_PHOTO
 } from '../constants/types';
 
 
@@ -39,6 +39,8 @@ const userReducer = (state = initialState, action) => {
                     followers:[...state.profile.followers.filter(id => id !== action.payload.userId )]
                 }
             }
+        case UPDATE_PROFILE_PHOTO:
+            return state
         default:
             return state;
     }
