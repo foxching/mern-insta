@@ -33,6 +33,7 @@ const Profile = () => {
         authUserId={authUser && authUser._id} 
         userId={user && user._id}  
         name={user && user.name} 
+        pic={user && user.pic}
         followers={user && user.followers}  
         following={user && user.following} 
         userPosts={userPosts}
