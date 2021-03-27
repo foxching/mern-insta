@@ -36,6 +36,7 @@ exports.login = (req, res) => {
               _id:user._id,
               name:user.name,
               email:user.email,
+              pic:user.pic,
               followers:user.followers,
               following:user.following
             }
@@ -51,7 +52,8 @@ exports.login = (req, res) => {
  * @desc    Register User
  */
 exports.register = (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, pic} = req.body;
+  console.log(req.body)
 
   if (!name || !email || !password) {
     return res.status(422).json({ msg: "All fields are required" });
@@ -62,7 +64,8 @@ exports.register = (req, res) => {
     const newUser = new User({
       name,
       email,
-      password
+      password,
+      pic
     });
 
     //create salt
@@ -84,6 +87,7 @@ exports.register = (req, res) => {
                   _id:user._id,
                   name:user.name,
                   email:user.email,
+                  pic:user.pic,
                   followers:user.followers,
                   following:user.following
                 }
