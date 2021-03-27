@@ -67,3 +67,17 @@ exports.followUser = async (req, res) => {
     }
 }
 
+/**
+ * @route   PUT api/user/updatephoto
+ * @desc   update profile photo
+ */
+
+exports.updateProfilePic = async (req, res) => {
+    try {
+        await  User.findByIdAndUpdate(req.user._id,{$set:{pic:req.body.pic}},{new:true})
+        return res.status(200).json({msg:"Profile pic updated successfully"})
+    } catch (err) {
+        res.status(500).json({err:err})
+    }
+}
+
