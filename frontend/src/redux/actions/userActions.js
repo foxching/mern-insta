@@ -6,12 +6,13 @@ import {
   UNFOLLOW_USER,
   UPDATE_PROFILE_PHOTO
 } from "../constants/types";
+import { url } from "../../api/url";
 import { tokenConfig } from "./authActions";
 
 export const getUserProfile = username => (dispatch, getState) => {
   dispatch({ type: PROFILE_LOADING });
   axios
-    .get(`/api/user/${username}`, tokenConfig(getState))
+    .get(`${url}/api/user/${username}`, tokenConfig(getState))
     .then(res => {
       dispatch({ type: PROFILE_LOADED, payload: res.data });
     })
@@ -24,7 +25,7 @@ export const getUserProfile = username => (dispatch, getState) => {
 export const followUser = followId => (dispatch, getState) => {
   const userId = getState().auth.user._id;
   axios
-    .put("/api/user/follow", { followId }, tokenConfig(getState))
+    .put(`${url}/api/user/follow`, { followId }, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({ type: FOLLOW_USER, payload: { followId, userId } });
@@ -38,7 +39,7 @@ export const followUser = followId => (dispatch, getState) => {
 export const unFollowUser = unfollowId => (dispatch, getState) => {
   const userId = getState().auth.user._id;
   axios
-    .put("/api/user/unfollow", { unfollowId }, tokenConfig(getState))
+    .put(`${url}/api/user/unfollow`, { unfollowId }, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({ type: UNFOLLOW_USER, payload: { unfollowId, userId } });
@@ -52,7 +53,7 @@ export const unFollowUser = unfollowId => (dispatch, getState) => {
 export const updateProfilePic = pic => (dispatch, getState) => {
   const userId = getState().auth.user._id;
   axios
-    .put("/api/user/updatephoto", { pic }, tokenConfig(getState))
+    .put(`${url}/api/user/updatephoto`, { pic }, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({ type: UPDATE_PROFILE_PHOTO, payload: { pic, userId } });

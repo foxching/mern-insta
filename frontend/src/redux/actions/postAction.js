@@ -10,12 +10,13 @@ import {
 } from "../constants/types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
+import { url } from "../../api/url";
 import M from "materialize-css";
 
 export const getAllPost = () => (dispatch, getState) => {
   dispatch({ type: LOADING_POSTS });
   axios
-    .get("/api/post/allPost", tokenConfig(getState))
+    .get(`${url}/api/post/allPost`, tokenConfig(getState))
     .then(res => {
       dispatch({ type: LOAD_ALL_POSTS, payload: res.data });
     })
@@ -27,7 +28,7 @@ export const getAllPost = () => (dispatch, getState) => {
 export const getMyPost = () => (dispatch, getState) => {
   dispatch({ type: LOADING_POSTS });
   axios
-    .get("/api/post/myPost", tokenConfig(getState))
+    .get(`${url}/api/post/myPost`, tokenConfig(getState))
     .then(res => {
       dispatch({ type: LOAD_MY_POSTS, payload: res.data });
     })
@@ -38,7 +39,7 @@ export const getMyPost = () => (dispatch, getState) => {
 
 export const createPost = (post, history) => (dispatch, getState) => {
   axios
-    .post("/api/post/createPost", post, tokenConfig(getState))
+    .post(`${url}/api/post/createPost`, post, tokenConfig(getState))
     .then(res => {
       dispatch({ type: ADD_POST, payload: res.data.newPost });
       M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
@@ -53,7 +54,7 @@ export const createPost = (post, history) => (dispatch, getState) => {
 export const togglelikeUnLikePost = postId => (dispatch, getState) => {
   const userId = getState().auth.user._id;
   axios
-    .put("/api/post/toggleLikeUnlike", { postId }, tokenConfig(getState))
+    .put(`${url}/api/post/toggleLikeUnlike`, { postId }, tokenConfig(getState))
     .then(res => {
       dispatch({ type: TOGGLE_LIKE_UNLIKE_POST, payload: { postId, userId } });
     })
@@ -65,7 +66,7 @@ export const togglelikeUnLikePost = postId => (dispatch, getState) => {
 
 export const createComment = (text, postId) => (dispatch, getState) => {
   axios
-    .put("/api/post/comment", { text, postId }, tokenConfig(getState))
+    .put(`${url}/api/post/comment`, { text, postId }, tokenConfig(getState))
     .then(res => {
       const comment = res.data.post.comments[res.data.post.comments.length - 1];
       dispatch({ type: ADD_COMMENT, payload: { comment, postId } });
@@ -78,7 +79,7 @@ export const createComment = (text, postId) => (dispatch, getState) => {
 
 export const deletePost = postId => (dispatch, getState) => {
   axios
-    .delete(`/api/post/deletePost/${postId}`, tokenConfig(getState))
+    .delete(`${url}/api/post/deletePost/${postId}`, tokenConfig(getState))
     .then(res => {
       dispatch({ type: DELETE_POST, payload: postId });
       M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
