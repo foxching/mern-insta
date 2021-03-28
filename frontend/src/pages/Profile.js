@@ -15,7 +15,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserProfile(username));
-  }, [dispatch]);
+  }, [dispatch, username]);
 
   let postsMarkup =
     !loading && userPosts.length > 0 ? (

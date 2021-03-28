@@ -53,6 +53,7 @@ const Signup = () => {
     if (url) {
       handleRegister();
     }
+    // eslint-disable-next-line
   }, [url]);
 
   const {

@@ -30,7 +30,7 @@ const ProfilePhoto = ({ loading, pic }) => {
           console.log(err);
         });
     }
-  }, [image]);
+  }, [image, dispatch]);
 
   return (
     <div style={{ textAlign: "center", position: "relative" }}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { followUser, unFollowUser } from "../../redux/actions/userActions";
 import ProfilePhoto from "./ProfilePhoto";
