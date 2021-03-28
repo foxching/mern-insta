@@ -11,11 +11,18 @@ app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/post", require("./routes/api/post"));
 app.use("/api/user", require("./routes/api/user"));
 
+app.get("/", (req, res) => {
+  res.send("Server is running!!");
+});
+
+//mongodb connection
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv/config");
+}
+
 //mongodb
-const config = require("config");
-const db = config.get("mongoURI");
 mongoose
-  .connect(db, {
+  .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
