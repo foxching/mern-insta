@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { clearErrors } from "../redux/actions/errorActions";
 
-
 export const useForm = (callback, initialState = {}) => {
   const dispatch = useDispatch();
   const { isAuthenticated, isLoading } = useSelector(state => state.auth);
@@ -30,14 +29,13 @@ export const useForm = (callback, initialState = {}) => {
     }
   }, [error]);
 
-   //cleanup ui errors
-   useEffect(() => {
+  //cleanup ui errors
+  useEffect(() => {
     return () => {
       dispatch(clearErrors());
     };
   }, [dispatch]);
 
-  
   return {
     error,
     values,

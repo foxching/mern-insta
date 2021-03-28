@@ -2,21 +2,19 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileInfo from "../components/Profile/ProfileInfo";
 import PostSmall from "../components/Post/PostSmall";
-import { getMyPost } from "../redux/actions/postAction";
-import {getUserProfile} from "../redux/actions/userActions"
-import {useParams} from 'react-router-dom'
+import { getUserProfile } from "../redux/actions/userActions";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const {username} = useParams()
+  const { username } = useParams();
   const loading = useSelector(state => state.user.isLoading);
   const userPosts = useSelector(state => state.user.userPosts);
-  const authUser = useSelector(state => state.auth.user)
-  const user = useSelector(state => state.user.profile)
-
+  const authUser = useSelector(state => state.auth.user);
+  const user = useSelector(state => state.user.profile);
 
   useEffect(() => {
-    dispatch(getUserProfile(username))
+    dispatch(getUserProfile(username));
   }, [dispatch]);
 
   let postsMarkup =
@@ -28,14 +26,14 @@ const Profile = () => {
 
   return (
     <div style={{ maxWidth: "550px", margin: "0px auto" }}>
-      <ProfileInfo 
-        loading={loading}  
-        authUserId={authUser && authUser._id} 
-        userId={user && user._id}  
-        name={user && user.name} 
+      <ProfileInfo
+        loading={loading}
+        authUserId={authUser && authUser._id}
+        userId={user && user._id}
+        name={user && user.name}
         pic={user && user.pic}
-        followers={user && user.followers}  
-        following={user && user.following} 
+        followers={user && user.followers}
+        following={user && user.following}
         userPosts={userPosts}
       />
       <div
@@ -48,7 +46,6 @@ const Profile = () => {
         {postsMarkup}
       </div>
     </div>
-    
   );
 };
 

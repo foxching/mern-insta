@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth")
+const auth = require("../../middleware/auth");
 const {
   getAllPost,
   getMyPost,
@@ -20,6 +20,6 @@ router.put("/toggleLikeUnlike", auth, toggleLikeUnlikePost);
 
 router.put("/comment", auth, createComments);
 
-router.delete("/deletePost/:postId", auth, deletePost)
+router.delete("/deletePost/:postId", auth, deletePost);
 
 module.exports = router;

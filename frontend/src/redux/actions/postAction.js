@@ -3,7 +3,6 @@ import {
   ADD_POST,
   LOADING_POSTS,
   LOAD_ALL_POSTS,
-  LOAD_USER_POSTS,
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
   ADD_COMMENT,
@@ -64,30 +63,28 @@ export const togglelikeUnLikePost = postId => (dispatch, getState) => {
     });
 };
 
-
-export const createComment = (text, postId)  => (dispatch, getState) => {
+export const createComment = (text, postId) => (dispatch, getState) => {
   axios
-    .put("/api/post/comment", {text, postId}, tokenConfig(getState))
+    .put("/api/post/comment", { text, postId }, tokenConfig(getState))
     .then(res => {
-      const comment =  res.data.post.comments[res.data.post.comments.length - 1]
-      dispatch({ type: ADD_COMMENT, payload: { comment, postId, } });
+      const comment = res.data.post.comments[res.data.post.comments.length - 1];
+      dispatch({ type: ADD_COMMENT, payload: { comment, postId } });
     })
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));
       console.log(err);
     });
-}
+};
 
-
-export const deletePost = (postId) => (dispatch, getState) => {
+export const deletePost = postId => (dispatch, getState) => {
   axios
-      .delete(`/api/post/deletePost/${postId}`, tokenConfig(getState))
-      .then(res => {
-        dispatch({type:DELETE_POST, payload:postId})
-        M.toast({html: res.data.msg, classes:"#43a047 green darken-1"})
-      })
-      .catch(err => {
-        dispatch(returnErrors(err.response.data, err.response.status));
-        console.log(err);
-      });
-}
+    .delete(`/api/post/deletePost/${postId}`, tokenConfig(getState))
+    .then(res => {
+      dispatch({ type: DELETE_POST, payload: postId });
+      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      console.log(err);
+    });
+};

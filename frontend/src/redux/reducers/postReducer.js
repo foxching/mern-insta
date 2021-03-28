@@ -2,7 +2,6 @@ import {
   ADD_POST,
   LOADING_POSTS,
   LOAD_ALL_POSTS,
-  LOAD_USER_POSTS,
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
   ADD_COMMENT,
@@ -56,26 +55,27 @@ const postReducer = (state = initialState, action) => {
     case ADD_COMMENT:
       return {
         ...state,
-        allPosts:state.allPosts.map(post => {
-          if(post._id === action.payload.postId){
-           return {
-            ...post,
-            comments:[...post.comments, action.payload.comment]
-           }
-          }else {
-            return post
+        allPosts: state.allPosts.map(post => {
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              comments: [...post.comments, action.payload.comment]
+            };
+          } else {
+            return post;
           }
         })
-      }
+      };
     case DELETE_POST:
       return {
-        ...state, 
-        allPosts:[...state.allPosts.filter(allPost => allPost._id !== action.payload)]
-      }
+        ...state,
+        allPosts: [
+          ...state.allPosts.filter(allPost => allPost._id !== action.payload)
+        ]
+      };
     default:
       return state;
   }
-
 };
 
 export default postReducer;

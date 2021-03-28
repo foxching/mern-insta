@@ -7,12 +7,12 @@ const Post = require("../model/Post");
  */
 
 exports.getAllPost = async (req, res) => {
-  following = req.user.following
-  following.push(req.user._id)
+  following = req.user.following;
+  following.push(req.user._id);
   try {
-    const posts = await Post.find({postedBy:{$in:req.user.following}})
+    const posts = await Post.find({ postedBy: { $in: req.user.following } })
       .populate("postedBy", "name")
-      .populate("comments.postedBy","name")
+      .populate("comments.postedBy", "name")
       .exec();
     //console.log(posts)
     res.status(200).json(posts);
@@ -111,38 +111,42 @@ exports.createComments = async (req, res) => {
     postedBy: req.user._id
   };
 
-  try{
-    const post = await Post.findOneAndUpdate(req.body.postId,{
-      $push:{comments:comment}
-    },{
-        new:true
-    })
-    .populate("comments.postedBy","_id name")
-    .populate("postedBy","_id name")
-    .exec()
-    res.status(200).json({post, msg:"Commented successfully"})
-  }catch(err){
-    return res.status(422).json({error:err})
+  try {
+    const post = await Post.findOneAndUpdate(
+      req.body.postId,
+      {
+        $push: { comments: comment }
+      },
+      {
+        new: true
+      }
+    )
+      .populate("comments.postedBy", "_id name")
+      .populate("postedBy", "_id name")
+      .exec();
+    res.status(200).json({ post, msg: "Commented successfully" });
+  } catch (err) {
+    return res.status(422).json({ error: err });
   }
 };
 
-
-
 /**
  * @route   DELETE posts/
- * @desc    delete post 
+ * @desc    delete post
  */
 
 exports.deletePost = async (req, res) => {
   try {
-    const post = await Post.findOne({_id:req.params.postId})
-    if(post.postedBy.toString() === req.user._id.toString()) {
-      await post.remove()
-      return res.status(201).json({msg:"Post deleted successfully"})
-    }else {
-      return res.status(401).json({msg:"You are not authorized to delete this post"})
+    const post = await Post.findOne({ _id: req.params.postId });
+    if (post.postedBy.toString() === req.user._id.toString()) {
+      await post.remove();
+      return res.status(201).json({ msg: "Post deleted successfully" });
+    } else {
+      return res
+        .status(401)
+        .json({ msg: "You are not authorized to delete this post" });
     }
   } catch (err) {
-    return res.status(500).json({err:err})
+    return res.status(500).json({ err: err });
   }
-}
+};

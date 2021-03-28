@@ -1,5 +1,5 @@
-import {useEffect} from "react"
-import { BrowserRouter,Switch } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Navbar from "./components/Navbar";
@@ -12,16 +12,15 @@ import { PublicRoute } from "./components/routes/PublicRoute";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
 
 import store from "./redux/store";
-import { loadUser } from './redux/actions/authActions'
+import { loadUser } from "./redux/actions/authActions";
 
 import "./App.css";
 
 const App = () => {
-  
   useEffect(() => {
-    store.dispatch(loadUser())
-  },[])
-  
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <BrowserRouter>

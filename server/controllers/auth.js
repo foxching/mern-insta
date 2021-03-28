@@ -18,7 +18,6 @@ exports.login = (req, res) => {
 
   User.findOne({ email }).then(user => {
     if (!user) return res.status(400).json({ msg: "User does not exists" });
-   
 
     //Password validation
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -32,13 +31,13 @@ exports.login = (req, res) => {
           res.json({
             msg: "Successfully login",
             token,
-            user:{
-              _id:user._id,
-              name:user.name,
-              email:user.email,
-              pic:user.pic,
-              followers:user.followers,
-              following:user.following
+            user: {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+              pic: user.pic,
+              followers: user.followers,
+              following: user.following
             }
           });
         }
@@ -52,8 +51,8 @@ exports.login = (req, res) => {
  * @desc    Register User
  */
 exports.register = (req, res) => {
-  const { name, email, password, pic} = req.body;
-  console.log(req.body)
+  const { name, email, password, pic } = req.body;
+  console.log(req.body);
 
   if (!name || !email || !password) {
     return res.status(422).json({ msg: "All fields are required" });
@@ -83,13 +82,13 @@ exports.register = (req, res) => {
               res.status(200).json({
                 msg: "Successfully signup",
                 token,
-                user:{
-                  _id:user._id,
-                  name:user.name,
-                  email:user.email,
-                  pic:user.pic,
-                  followers:user.followers,
-                  following:user.following
+                user: {
+                  _id: user._id,
+                  name: user.name,
+                  email: user.email,
+                  pic: user.pic,
+                  followers: user.followers,
+                  following: user.following
                 }
               });
             }
@@ -107,9 +106,9 @@ exports.register = (req, res) => {
  */
 exports.getLoggedUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("-password")
-    res.status(201).json(user)
+    const user = await User.findById(req.user._id).select("-password");
+    res.status(201).json(user);
   } catch (err) {
-    res.status(500).json({err:err})
+    res.status(500).json({ err: err });
   }
 };
