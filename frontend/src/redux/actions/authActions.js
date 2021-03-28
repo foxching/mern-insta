@@ -10,6 +10,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL
 } from "../constants/types";
+import { url } from "../../api/url";
 import M from "materialize-css";
 
 // load user
@@ -18,7 +19,7 @@ export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
 
   axios
-    .get("/api/auth/user", tokenConfig(getState))
+    .get(`${url}/api/auth/user`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: USER_LOADED,
@@ -46,7 +47,7 @@ export const register = ({ name, email, password, pic }) => dispatch => {
   const body = JSON.stringify({ name, email, password, pic });
 
   axios
-    .post("/api/auth/signup", body, config)
+    .post(`${url}/api/auth/signup`, body, config)
     .then(res => {
       dispatch({
         type: REGISTER_SUCCESS,
@@ -78,7 +79,7 @@ export const login = ({ email, password }) => dispatch => {
   const body = JSON.stringify({ email, password });
 
   axios
-    .post("/api/auth/login", body, config)
+    .post(`${url}/api/auth/login`, body, config)
     .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
