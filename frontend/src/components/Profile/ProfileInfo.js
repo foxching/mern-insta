@@ -62,7 +62,12 @@ const ProfileInfo = ({
           justifyContent: "space-around"
         }}
       >
-        <ProfilePhoto pic={pic} loading={loading} />
+        <ProfilePhoto
+          pic={pic}
+          loading={loading}
+          userId={userId}
+          authUserId={authUserId}
+        />
         <div>
           <div
             style={{

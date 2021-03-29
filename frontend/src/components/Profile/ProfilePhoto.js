@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateProfilePic } from "../../redux/actions/userActions";
 
-const ProfilePhoto = ({ loading, pic }) => {
+const ProfilePhoto = ({ loading, pic, userId, authUserId }) => {
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
 
@@ -44,21 +44,23 @@ const ProfilePhoto = ({ loading, pic }) => {
             : "https://res.cloudinary.com/dtvqrqyqr/image/upload/v1616895042/giphy_tacamn.gif"
         }
       />
-      <React.Fragment>
-        <input
-          type="file"
-          id="imageInput"
-          hidden
-          onChange={e => setImage(e.target.files[0])}
-        />
-        <button
-          style={{ position: "absolute", top: "80%", left: "70%" }}
-          className="waves-effect waves-teal btn-flat button"
-          onClick={handleEditPicture}
-        >
-          <i className="tiny material-icons">camera_alt</i>
-        </button>
-      </React.Fragment>
+      {!loading && authUserId === userId && (
+        <React.Fragment>
+          <input
+            type="file"
+            id="imageInput"
+            hidden
+            onChange={e => setImage(e.target.files[0])}
+          />
+          <button
+            style={{ position: "absolute", top: "80%", left: "70%" }}
+            className="waves-effect waves-teal btn-flat button"
+            onClick={handleEditPicture}
+          >
+            <i className="tiny material-icons">camera_alt</i>
+          </button>
+        </React.Fragment>
+      )}
     </div>
   );
 };
