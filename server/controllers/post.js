@@ -113,7 +113,7 @@ exports.createComments = async (req, res) => {
 
   try {
     const post = await Post.findOneAndUpdate(
-      req.body.postId,
+      { _id: ObjectId(req.body.postId) },
       {
         $push: { comments: comment }
       },
