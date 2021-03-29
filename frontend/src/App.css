@@ -38,3 +38,42 @@ h2 {
   max-height: max-content;
   margin: 26px auto;
 }
+
+.post-container {
+}
+
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+.post-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.post-image {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  margin-right: 10px;
+}
+.poster-name {
+  font-weight: bold;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+}
+.comment i {
+  display: none;
+  cursor: pointer;
+}
+.comment:hover i {
+  display: block;
+}
+.comment-info {
+  flex-grow: 1;
+}
