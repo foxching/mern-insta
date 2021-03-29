@@ -11,7 +11,7 @@ exports.getAllPost = async (req, res) => {
   following.push(req.user._id);
   try {
     const posts = await Post.find({ postedBy: { $in: req.user.following } })
-      .populate("postedBy", "name")
+      .populate("postedBy", "name pic")
       .populate("comments.postedBy", "name")
       .exec();
     //console.log(posts)
