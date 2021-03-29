@@ -6,9 +6,8 @@ import { clearErrors } from "../redux/actions/errorActions";
 export const useForm = (callback, initialState = {}) => {
   const dispatch = useDispatch();
   const { isAuthenticated, isLoading } = useSelector(state => state.auth);
-  const error = useSelector(state => state.error);
+  const { loading } = useSelector(state => state.ui);
   const [values, setValues] = useState(initialState);
-  const [errorMsg, setErrorMsg] = useState("");
 
   const onChange = event => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -19,16 +18,6 @@ export const useForm = (callback, initialState = {}) => {
     callback();
   };
 
-  useEffect(() => {
-    if (error.id === "LOGIN_FAIL") {
-      setErrorMsg(error.msg.msg);
-    } else if (error.id === "REGISTER_FAIL") {
-      setErrorMsg(error.msg.msg);
-    } else {
-      setErrorMsg(null);
-    }
-  }, [error]);
-
   //cleanup ui errors
   useEffect(() => {
     return () => {
@@ -37,12 +26,11 @@ export const useForm = (callback, initialState = {}) => {
   }, [dispatch]);
 
   return {
-    error,
     values,
-    isLoading,
-    isAuthenticated,
-    errorMsg,
     setValues,
+    isLoading,
+    loading,
+    isAuthenticated,
     onChange,
     handleSubmit
   };

@@ -21,6 +21,7 @@ const Login = () => {
     setValues,
     onChange,
     isLoading,
+    loading,
     isAuthenticated,
     handleSubmit
   } = useForm(handleSignin, { email: "", password: "" });
@@ -49,19 +50,44 @@ const Login = () => {
             placeholder="Password"
           />
           <button
-            className="btn waves-effect waves-light blue darken-1"
+            className="btn waves-effect waves-light blue lighten-1"
             type="submit"
+            disabled={loading}
+            style={{ width: "100%", marginTop: "10px", textTransform: "none" }}
           >
-            Login
+            {loading ? (
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-red-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
-        <h5>
-          <Link to="/signup">Dont have an account ?</Link>
-        </h5>
         <h6>
-          <Link to="/reset">Forgot password ?</Link>
+          Dont have an account?
+          <span>
+            <Link to="/signup" className="blue-text text-darken-3">
+              Signup
+            </Link>
+          </span>
         </h6>
+        <small>
+          <Link to="/reset" className="blue-text text-darken-3">
+            Forgot password ?
+          </Link>
+        </small>
       </div>
     </div>
   );

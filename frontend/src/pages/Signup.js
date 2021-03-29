@@ -61,6 +61,7 @@ const Signup = () => {
     setValues,
     onChange,
     isLoading,
+    loading,
     isAuthenticated,
     handleSubmit
   } = useForm(handleSignup, { name: "", email: "", password: "" });
@@ -96,26 +97,53 @@ const Signup = () => {
             placeholder="Password"
           />
           <div className="file-field input-field">
-            <div className="btn #64b5f6 blue darken-1">
-              <span>Upload pic</span>
+            <a className="btn btn-flat grey lighten-3">
+              <i class="large material-icons">add_a_photo</i>
               <input type="file" onChange={e => setImage(e.target.files[0])} />
-            </div>
+            </a>
             <div className="file-path-wrapper">
-              <input className="file-path validate" type="text" />
+              <input
+                className="file-path validate"
+                type="text"
+                placeholder="Upload Profile Photo.."
+              />
             </div>
           </div>
           <button
             className="btn waves-effect waves-light blue darken-1"
             type="submit"
             onClick={handleSubmit}
+            disabled={loading}
+            style={{ width: "100%", marginTop: "10px", textTransform: "none" }}
           >
-            Signup
+            {loading ? (
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-red-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              "Signup"
+            )}
           </button>
         </form>
 
-        <h5>
-          <Link to="/signin">Already have an account ?</Link>
-        </h5>
+        <h6>
+          Already have an account?
+          <span>
+            <Link to="/signin" className="blue-text text-darken-3">
+              Signin
+            </Link>
+          </span>
+        </h6>
       </div>
     </div>
   );

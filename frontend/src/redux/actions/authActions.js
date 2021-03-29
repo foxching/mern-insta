@@ -8,7 +8,8 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  LOADING_UI
 } from "../constants/types";
 import { url } from "../../api/url";
 import M from "materialize-css";
@@ -45,7 +46,7 @@ export const register = ({ name, email, password, pic }) => dispatch => {
 
   // Request body
   const body = JSON.stringify({ name, email, password, pic });
-
+  dispatch({ type: LOADING_UI });
   axios
     .post(`${url}/api/auth/signup`, body, config)
     .then(res => {
@@ -77,7 +78,7 @@ export const login = ({ email, password }) => dispatch => {
 
   // Request body
   const body = JSON.stringify({ email, password });
-
+  dispatch({ type: LOADING_UI });
   axios
     .post(`${url}/api/auth/login`, body, config)
     .then(res => {
