@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
-const PostComment = ({ comment }) => {
+import { useDispatch } from "react-redux";
+import { deleteComment } from "../../redux/actions/postAction";
+
+const PostComment = ({ authId, comment, postId, postedBy }) => {
+  const dispatch = useDispatch();
   return (
     <div className="comment">
       <h6 className="comment-info">
@@ -10,7 +14,14 @@ const PostComment = ({ comment }) => {
         </span>{" "}
         {comment.text}
       </h6>
-      <i className="material-icons tiny grey-text">delete</i>
+      {postedBy._id === authId || comment.postedBy._id === authId ? (
+        <i
+          className="material-icons tiny grey-text"
+          onClick={() => dispatch(deleteComment(postId, comment._id))}
+        >
+          delete
+        </i>
+      ) : null}
     </div>
   );
 };

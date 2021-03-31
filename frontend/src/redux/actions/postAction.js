@@ -6,7 +6,8 @@ import {
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
   ADD_COMMENT,
-  DELETE_POST
+  DELETE_POST,
+  DELETE_COMMENT
 } from "../constants/types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
@@ -87,5 +88,19 @@ export const deletePost = postId => (dispatch, getState) => {
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));
       console.log(err);
+    });
+};
+
+export const deleteComment = (postId, commentId) => (dispatch, getState) => {
+  axios
+    .delete(
+      `${url}/api/post/deleteComment/${postId}/${commentId}`,
+      tokenConfig(getState)
+    )
+    .then(res => {
+      dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data.msg, err.response.status));
     });
 };
