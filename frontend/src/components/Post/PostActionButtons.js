@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { togglelikeUnLikePost } from "../../redux/actions/postAction";
 
-const PostActionButtons = ({ likes, id, isLoading, userId }) => {
+const PostActionButtons = ({ authId, likes, id, isLoading }) => {
   const dispatch = useDispatch();
   return (
     <div
@@ -14,7 +14,7 @@ const PostActionButtons = ({ likes, id, isLoading, userId }) => {
       <i
         className="material-icons"
         style={{
-          color: !isLoading && likes.includes(userId) ? "red" : "black",
+          color: !isLoading && likes.includes(authId) ? "red" : "black",
           cursor: "pointer"
         }}
         onClick={() => dispatch(togglelikeUnLikePost(id))}

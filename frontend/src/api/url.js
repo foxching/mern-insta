@@ -1,1 +1,1 @@
-export const url = "https://chingmerninsta.herokuapp.com";
+export const url = "http://localhost:5000";

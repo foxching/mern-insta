@@ -7,7 +7,7 @@ import DeleteModal from "../../components/Modal/DeleteModal";
 
 const PostLarge = props => {
   const isLoading = useSelector(state => state.auth.isLoading);
-  const userId = useSelector(state => state.auth.user._id);
+  const authId = useSelector(state => state.auth.user._id);
   const { _id, title, body, postedBy, pic, likes, comments } = props.post;
 
   return (
@@ -23,7 +23,7 @@ const PostLarge = props => {
             <h6 className="poster-name">{postedBy.name}</h6>{" "}
           </div>
         </Link>
-        {postedBy._id === userId && (
+        {postedBy._id === authId && (
           <button
             className="waves-effect waves-light btn-flat modal-trigger"
             data-target={`modal${_id}`}
@@ -40,13 +40,19 @@ const PostLarge = props => {
           likes={likes}
           id={_id}
           isLoading={isLoading}
-          userId={userId}
+          authId={authId}
         />
         <h6>{likes.length} likes</h6>
         <h6>{title}</h6>
         <p>{body}</p>
         {comments.map(comment => (
-          <PostComment key={comment.id} comment={comment} />
+          <PostComment
+            key={comment._id}
+            authId={authId}
+            comment={comment}
+            postId={_id}
+            postedBy={postedBy}
+          />
         ))}
         <PostCommentForm id={_id} />
       </div>
