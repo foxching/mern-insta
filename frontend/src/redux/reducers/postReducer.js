@@ -5,7 +5,8 @@ import {
   LOAD_MY_POSTS,
   TOGGLE_LIKE_UNLIKE_POST,
   ADD_COMMENT,
-  DELETE_POST
+  DELETE_POST,
+  DELETE_COMMENT
 } from "../constants/types";
 
 const initialState = {
@@ -72,6 +73,22 @@ const postReducer = (state = initialState, action) => {
         allPosts: [
           ...state.allPosts.filter(allPost => allPost._id !== action.payload)
         ]
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        allPosts: state.allPosts.map(post => {
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              comments: [
+                ...post.comments.filter(c => c._id !== action.payload.commentId)
+              ]
+            };
+          } else {
+            return post;
+          }
+        })
       };
     default:
       return state;

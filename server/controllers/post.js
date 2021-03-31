@@ -101,7 +101,28 @@ exports.toggleLikeUnlikePost = async (req, res) => {
 };
 
 /**
- * @route   PUT api/posts
+ * @route   DELETE posts/
+ * @desc    delete post
+ */
+
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.postId });
+    if (post.postedBy.toString() === req.user._id.toString()) {
+      await post.remove();
+      return res.status(201).json({ msg: "Post deleted successfully" });
+    } else {
+      return res
+        .status(401)
+        .json({ msg: "You are not authorized to delete this post" });
+    }
+  } catch (err) {
+    return res.status(500).json({ err: err });
+  }
+};
+
+/**
+ * @route   PUT api/posts/comment
  * @desc    add comment to post
  */
 
@@ -126,25 +147,40 @@ exports.createComments = async (req, res) => {
       .exec();
     res.status(200).json({ post, msg: "Commented successfully" });
   } catch (err) {
-    return res.status(422).json({ error: err });
+    return res.status(500).json({ error: err });
   }
 };
 
 /**
- * @route   DELETE posts/
- * @desc    delete post
+ * @route   DELETE api/posts/comment
+ * @desc    add comment to post
  */
 
-exports.deletePost = async (req, res) => {
+exports.deleteComment = async (req, res) => {
   try {
-    const post = await Post.findOne({ _id: req.params.postId });
-    if (post.postedBy.toString() === req.user._id.toString()) {
-      await post.remove();
-      return res.status(201).json({ msg: "Post deleted successfully" });
+    const post = await Post.findOne({ _id: ObjectId(req.params.postId) });
+    const comment = post.comments.find(
+      comment => comment.id === req.params.commentId
+    );
+
+    if (
+      post.postedBy.toString() === req.user._id.toString() ||
+      comment.postedBy.toString() === req.user._id.toString()
+    ) {
+      await Post.updateOne(
+        { _id: ObjectId(req.params.postId) },
+        {
+          $pull: { comments: comment }
+        },
+        {
+          new: true
+        }
+      );
+      res.status(201).json({ msg: "Comment deleted successfully" });
     } else {
-      return res
-        .status(401)
-        .json({ msg: "You are not authorized to delete this post" });
+      res.status(401).json({
+        msg: "Unauthorized you are not allowed to access this resouces"
+      });
     }
   } catch (err) {
     return res.status(500).json({ err: err });
