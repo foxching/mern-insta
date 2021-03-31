@@ -97,10 +97,10 @@ const Signup = () => {
             placeholder="Password"
           />
           <div className="file-field input-field">
-            <a className="btn btn-flat grey lighten-3">
-              <i class="large material-icons">add_a_photo</i>
+            <button className="btn btn-flat grey lighten-3">
+              <i className="large material-icons">add_a_photo</i>
               <input type="file" onChange={e => setImage(e.target.files[0])} />
-            </a>
+            </button>
             <div className="file-path-wrapper">
               <input
                 className="file-path validate"

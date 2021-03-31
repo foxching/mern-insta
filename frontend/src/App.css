@@ -77,3 +77,10 @@ h2 {
 .comment-info {
   flex-grow: 1;
 }
+
+.dropdown-content {
+  margin: 40px !important;
+  min-width: 200px !important;
+  max-height: auto !important;
+  margin-left: -10px !important; /* Add this to keep dropdown in line with edge of navbar */
+}
