@@ -25,13 +25,11 @@ app.get("/", (req, res) => {
 });
 
 //mongodb connection
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv/config");
-}
+const { CONNECTION_URL } = require("./config/keys");
 
 //mongodb
 mongoose
-  .connect(process.env.CONNECTION_URL, {
+  .connect(CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
