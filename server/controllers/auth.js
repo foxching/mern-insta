@@ -191,3 +191,42 @@ exports.resetPassword = (req, res) => {
       });
   });
 };
+
+/**
+ * @route   POST api/auth/update-password
+ * @desc    POST update password
+ * @access  Public
+ */
+
+exports.updatePassword = (req, res) => {
+  const { password, confirmPassword } = req.body;
+
+  if (!password || !confirmPassword) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ msg: "Password did not match" });
+  }
+
+  User.findOne({
+    resetToken: req.body.token.token,
+    expireToken: { $gt: Date.now() }
+  })
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ msg: "Try again session expired" });
+      }
+      bcrypt.hash(password, 12).then(hashedpassword => {
+        user.password = hashedpassword;
+        user.resetToken = undefined;
+        user.expireToken = undefined;
+        user.save().then(saveduser => {
+          res.status(200).json({ msg: "Password updated successfully" });
+        });
+      });
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+};
