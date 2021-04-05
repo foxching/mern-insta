@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const { JWT_SECRET, EMAIL, PASSWORD } = require("../config/keys");
 const User = require("../model/User");
 const nodemailer = require("nodemailer");
@@ -146,4 +147,47 @@ exports.getLoggedUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: err });
   }
+};
+
+/**
+ * @route   POST api/auth/reset-password
+ * @desc    POST request new password
+ * @access  Public
+ */
+
+exports.resetPassword = (req, res) => {
+  // Simple validation
+  if (!req.body.email) {
+    return res.status(400).json({ msg: "Please enter a value" });
+  }
+
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) return res.status(422).json({ err: err });
+    const token = buffer.toString("hex");
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) {
+          return res
+            .status(404)
+            .json({ msg: "User dont exists with that email" });
+        }
+        user.resetToken = token;
+        user.expireToken = Date.now() + 3600000;
+        user.save().then(result => {
+          transporter.sendMail({
+            to: user.email,
+            from: "no-replay@insta.com",
+            subject: "password reset",
+            html: `
+                     <p>You requested for password reset</p>
+                     <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+                     `
+          });
+          res.status(200).json({ msg: "Please check your email" });
+        });
+      })
+      .catch(err => {
+        res.status(500).json({ err: err });
+      });
+  });
 };

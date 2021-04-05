@@ -21,7 +21,9 @@ const UserSchema = mongoose.Schema({
       "https://res.cloudinary.com/dtvqrqyqr/image/upload/v1616857075/_no-user-image_igexce.gif"
   },
   followers: [{ type: ObjectId, ref: "User" }],
-  following: [{ type: ObjectId, ref: "User" }]
+  following: [{ type: ObjectId, ref: "User" }],
+  resetToken: { type: String },
+  expireToken: { type: Date }
 });
 
 module.exports = mongoose.model("User", UserSchema);
