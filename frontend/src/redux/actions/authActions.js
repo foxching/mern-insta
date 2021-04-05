@@ -131,6 +131,37 @@ export const resetPassword = (email, history) => dispatch => {
     });
 };
 
+//update password
+export const updatePassword = (userPassword, token, history) => dispatch => {
+  const config = {
+    headers: {
+      "Content-type": "application/json"
+    }
+  };
+
+  const { password, confirmPassword } = userPassword;
+
+  const body = JSON.stringify({ password, confirmPassword, token });
+  dispatch({ type: LOADING_UI });
+  axios
+    .post(`${url}/api/auth/update-password`, body, config)
+    .then(res => {
+      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      history.push("/signin");
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => {
+      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      dispatch(
+        returnErrors(
+          err.response.data,
+          err.response.status,
+          "UPDATE_PASSWORD_FAIL"
+        )
+      );
+    });
+};
+
 //setup config headers/token
 export const tokenConfig = getState => {
   const token = getState().auth.token;

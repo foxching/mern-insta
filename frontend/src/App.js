@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 import Reset from "./pages/Reset";
+import NewPassword from "./pages/NewPassword";
 import { PublicRoute } from "./components/routes/PublicRoute";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
 
@@ -29,7 +30,8 @@ const App = () => {
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <PublicRoute path="/signin" component={Login} />
-          <PublicRoute path="/reset" component={Reset} />
+          <PublicRoute exact path="/reset" component={Reset} />
+          <PublicRoute path="/reset/:token" component={NewPassword} />
           <PublicRoute path="/signup" component={Signup} />
           <PrivateRoute path="/profile/:username" component={Profile} />
           <PrivateRoute path="/create" component={CreatePost} />
