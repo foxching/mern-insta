@@ -1,16 +1,10 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/actions/authActions";
+import { useSelector } from "react-redux";
 import DropMenu from "./Modal/DropMenu";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
   const isAuthenticated = useSelector(state => !!state.auth.token);
   const { user } = useSelector(state => state.auth);
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
 
   const renderLinks = () => {
     if (isAuthenticated) {
@@ -26,8 +20,13 @@ const Navbar = () => {
             <DropMenu>
               <img
                 className="circle"
-                src={user !== null ? user.pic : "https://res.cloudinary.com/dtvqrqyqr/image/upload/v1616895042/giphy_tacamn.gif"}
+                src={
+                  user !== null
+                    ? user.pic
+                    : "https://res.cloudinary.com/dtvqrqyqr/image/upload/v1616895042/giphy_tacamn.gif"
+                }
                 style={{ width: "2rem", height: "1.9rem" }}
+                alt="profilepic"
               />
             </DropMenu>
           </li>
