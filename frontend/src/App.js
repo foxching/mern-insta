@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
+import Reset from "./pages/Reset";
 import { PublicRoute } from "./components/routes/PublicRoute";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
 
@@ -28,6 +29,7 @@ const App = () => {
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <PublicRoute path="/signin" component={Login} />
+          <PublicRoute path="/reset" component={Reset} />
           <PublicRoute path="/signup" component={Signup} />
           <PrivateRoute path="/profile/:username" component={Profile} />
           <PrivateRoute path="/create" component={CreatePost} />

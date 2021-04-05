@@ -9,7 +9,8 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  LOADING_UI
+  LOADING_UI,
+  STOP_LOADING_UI
 } from "../constants/types";
 import { url } from "../../api/url";
 import M from "materialize-css";
@@ -105,9 +106,33 @@ export const logout = () => dispatch => {
   //clear user todos
 };
 
+//reset password
+export const resetPassword = (email, history) => dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  const body = JSON.stringify({ email });
+  dispatch({ type: LOADING_UI });
+  axios
+    .post(`${url}/api/auth/reset-password`, body, config)
+    .then(res => {
+      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      history.push("/signin");
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => {
+      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "RESET_FAIL")
+      );
+    });
+};
+
 //setup config headers/token
 export const tokenConfig = getState => {
-  //get token
   const token = getState().auth.token;
 
   const config = {
