@@ -1,0 +1,20 @@
+.signup_text {
+  width: 258px;
+  height: 36px;
+  margin: 5px;
+  border: 1px solid #dbdbdb;
+  background: #fafafa;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+.signup_button {
+  width: 270px;
+  height: 36px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: 1px solid #0395f6;
+  background: #0395f6;
+  margin-top: 5px;
+  color: white;
+  cursor: pointer;
+}

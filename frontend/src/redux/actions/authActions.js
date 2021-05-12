@@ -13,7 +13,7 @@ import {
   STOP_LOADING_UI
 } from "../constants/types";
 import { url } from "../../api/url";
-import M from "materialize-css";
+//import M from "materialize-css";
 
 // load user
 export const loadUser = () => (dispatch, getState) => {
@@ -55,10 +55,10 @@ export const register = ({ name, email, password, pic }) => dispatch => {
         type: REGISTER_SUCCESS,
         payload: res.data
       });
-      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      //M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
     })
     .catch(err => {
-      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      //M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
       dispatch(
         returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
       );
@@ -87,10 +87,10 @@ export const login = ({ email, password }) => dispatch => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
-      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      //M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
     })
     .catch(err => {
-      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      //M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
       dispatch(
         returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
       );
@@ -119,12 +119,12 @@ export const resetPassword = (email, history) => dispatch => {
   axios
     .post(`${url}/api/auth/reset-password`, body, config)
     .then(res => {
-      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      //M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
       history.push("/signin");
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
-      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      //M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
       dispatch(
         returnErrors(err.response.data, err.response.status, "RESET_FAIL")
       );
@@ -146,12 +146,12 @@ export const updatePassword = (userPassword, token, history) => dispatch => {
   axios
     .post(`${url}/api/auth/update-password`, body, config)
     .then(res => {
-      M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
+      //M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
       history.push("/signin");
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch(err => {
-      M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
+      //M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
       dispatch(
         returnErrors(
           err.response.data,

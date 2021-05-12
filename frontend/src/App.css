@@ -1,86 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
-
-a {
-  color: black !important;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.brand-logo,
-h2 {
-  font-family: "Grand Hotel", cursive;
-}
-
-.mycard {
-  margin-top: 30px;
-}
-
-.card-login {
-  text-align: center;
-  max-width: 400px;
-  padding: 20px;
-  margin: 20px auto;
-}
-
-.input-field input[type="text"]:focus {
-  border-bottom: 1px solid rgb(8, 93, 252) !important;
-  box-shadow: 0 1px 0 0 rgb(8, 93, 252) !important;
-}
-.input-field input[type="password"]:focus {
-  border-bottom: 1px solid rgb(8, 93, 252) !important;
-  box-shadow: 0 1px 0 0 rgb(8, 93, 252) !important;
-}
-
-.item {
-  width: 30%;
-}
-
-.home-card {
-  max-width: 500px;
-  max-height: max-content;
-  margin: 26px auto;
-}
-
-.post-container {
-}
-
-.post-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 0 10px;
-}
-.post-user {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.post-image {
-  width: 1.75rem !important;
-  height: 1.75rem !important;
-  margin-right: 10px;
-}
-.poster-name {
-  font-weight: bold;
-}
-
-.comment {
-  display: flex;
-  align-items: center;
-}
-.comment i {
-  display: none;
-  cursor: pointer;
-}
-.comment:hover i {
-  display: block;
-}
-.comment-info {
-  flex-grow: 1;
-}
-
-.dropdown-content {
-  margin: 40px !important;
-  min-width: 200px !important;
-  max-height: auto !important;
-  margin-left: -10px !important; /* Add this to keep dropdown in line with edge of navbar */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
