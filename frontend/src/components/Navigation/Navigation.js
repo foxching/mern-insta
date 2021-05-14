@@ -11,7 +11,7 @@ const Navigation = () => {
         <img src={logo} alt="logo" className="logo" />
         <div className="search">
           <img src={searchIcon} alt="" className="searchIcon" />
-          <span className="search_text">Search</span>
+          <span className="searchText">Search</span>
         </div>
         <Menu />
       </div>

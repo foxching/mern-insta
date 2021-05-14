@@ -38,6 +38,11 @@
         opacity: 0.4;
         margin-right: 0.3 em;
       }
+      .searchText {
+        font-weight: 300;
+        color: $font-color-secondary;
+        font-size: 0.85em;
+      }
     }
   }
 }
