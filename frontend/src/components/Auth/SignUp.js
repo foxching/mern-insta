@@ -1,5 +1,5 @@
 import React from "react";
-import "./SignUp.css";
+import "../../styles/signup.scss";
 
 const Signup = () => {
   return (

@@ -1,5 +1,5 @@
-import Auth from "./components/Auth/Auth";
-import "./App.css";
+import Auth from "./pages/Auth";
+import "./styles/App.scss";
 
 const App = () => {
   return (
