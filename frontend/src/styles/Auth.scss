@@ -52,36 +52,36 @@
       text-align: center;
     }
   }
-}
 
-.loginpage_signupoption {
-  margin-top: 25px;
-  height: 56px;
-  width: 350px;
-  border: 1px solid #dbdbdb;
-  background-color: white;
-  text-align: center;
+  .loginpage_signupoption {
+    margin-top: 25px;
+    height: 56px;
+    width: 350px;
+    border: 1px solid #dbdbdb;
+    background-color: white;
+    text-align: center;
 
-  .loginpage_signin {
-    margin-top: 20px;
+    .loginpage_signin {
+      margin-top: 20px;
+    }
+
+    .loginpage__signup {
+      margin-top: 20px;
+    }
   }
 
-  .loginpage__signup {
+  .loginpage_downloadSection {
+    height: 105px;
+    width: 350px;
+    text-align: center;
     margin-top: 20px;
-  }
-}
 
-.loginpage_downloadSection {
-  height: 105px;
-  width: 350px;
-  text-align: center;
-  margin-top: 20px;
+    .loginpage_option {
+      margin-top: 20px;
+    }
 
-  .loginpage_option {
-    margin-top: 20px;
-  }
-
-  .loginpage_dwimg {
-    margin: 5px;
+    .loginpage_dwimg {
+      margin: 5px;
+    }
   }
 }
