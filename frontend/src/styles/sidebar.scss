@@ -1,0 +1,12 @@
+@import "./variable";
+
+.sidebar {
+  width: 320px;
+  padding: 7em 2em 0 2em;
+}
+
+@media only scree and(max-width:1024px) {
+  .sidebar {
+    display: none !important;
+  }
+}

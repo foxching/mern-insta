@@ -5,7 +5,7 @@ import "./styles/App.scss";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Home />
     </div>
   );

@@ -1,0 +1,16 @@
+@import "./variable";
+
+.stories {
+  display: flex;
+  align-items: center;
+  background-color: $background-white;
+  border: 1px solid $border-color-grey;
+  margin: 2em 0 1.5em 0;
+  height: 7.4em;
+  overflow: hidden;
+}
+@media only screen and(max-width) {
+  .stories {
+    margin: 0 0 0.5em 0;
+  }
+}
