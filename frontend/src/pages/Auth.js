@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import inst_image from "../images/9364675fb26a.svg";
 import insta_logo from "../images/logoinsta.png";
@@ -9,16 +11,17 @@ import SignIn from "../components/Auth/SignIn";
 import SignUp from "../components/Auth/SignUp";
 import "../styles/Auth.scss";
 
-const Auth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+import { login, googleLogin } from "../redux/actions/authActions";
+import { useForm } from "../hooks/useForm";
 
-  const handleChange = () => {
-    if (isLoggedIn) {
-      setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
-    }
+const Auth = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleRoute = () => {
+    history.push("/register");
   };
+
   return (
     <div>
       <Grid container>
@@ -32,7 +35,7 @@ const Auth = () => {
               <div className="loginpage_rightcomponent">
                 <img src={insta_logo} className="loginpage_logo" alt="logo" />
                 <div className="loginpage_signin">
-                  {isLoggedIn ? <SignIn /> : <SignUp />}
+                  <SignIn />
                 </div>
                 <div className="login_ordiv">
                   <div className="login_divider"></div>
@@ -53,27 +56,15 @@ const Auth = () => {
               </div>
 
               <div className="loginpage_signupoption">
-                {isLoggedIn ? (
-                  <div className="loginpage_signin">
-                    Dont have an account?
-                    <span
-                      onClick={handleChange}
-                      style={{ fontWeight: "bold", color: "#0395F6" }}
-                    >
-                      Signup
-                    </span>
-                  </div>
-                ) : (
-                  <div className="loginpage__signup">
-                    Have an account ?{" "}
-                    <span
-                      onClick={handleChange}
-                      style={{ fontWeight: "bold", color: "#0395F6" }}
-                    >
-                      Signin
-                    </span>
-                  </div>
-                )}
+                <div className="loginpage_signin">
+                  Dont have an account?
+                  <span
+                    style={{ fontWeight: "bold", color: "#0395F6" }}
+                    onClick={handleRoute}
+                  >
+                    Signup
+                  </span>
+                </div>
               </div>
 
               <div className="loginpage_downloadSection">

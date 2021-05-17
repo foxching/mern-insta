@@ -1,3 +1,5 @@
+@import "./variable";
+
 .loginpage_main {
   display: flex;
   margin-top: 10px;
@@ -6,8 +8,8 @@
   .loginpage_rightcomponent {
     width: 350px;
     padding-bottom: 25px;
-    border: 1px solid #dbdbdb;
-    background: white;
+    border: 1px solid $border-color-grey;
+    background: $background-white;
     margin-top: 25px;
     text-align: center;
 
@@ -29,7 +31,7 @@
         width: 80px;
         height: 0px;
         margin-top: 10px;
-        border: 1px solid #dbdbdb;
+        border: 1px solid $border-color-grey;
       }
 
       .login_or {
@@ -57,16 +59,24 @@
     margin-top: 25px;
     height: 56px;
     width: 350px;
-    border: 1px solid #dbdbdb;
-    background-color: white;
+    border: 1px solid $border-color-grey;
+    background-color: $background-white;
     text-align: center;
 
     .loginpage_signin {
       margin-top: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .loginpage__signup {
       margin-top: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
