@@ -95,3 +95,16 @@
     }
   }
 }
+
+@media only screen and(max-width:640px) {
+  .loginpage_main {
+    margin-left: 0;
+    .loginpage_rightcomponent {
+      width: 100%;
+    }
+    .loginpage_image {
+      display: none;
+      margin: 0 auto;
+    }
+  }
+}

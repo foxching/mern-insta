@@ -87,7 +87,6 @@ export const login = ({ email, password }) => dispatch => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
-      //M.toast({ html: res.data.msg, classes: "#43a047 green darken-1" });
     })
     .catch(err => {
       //M.toast({ html: err.response.data.msg, classes: "#c62828 red darken-3" });
