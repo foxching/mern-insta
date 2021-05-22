@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import insta_logo from "../images/logoinsta.png";
@@ -11,10 +13,15 @@ import "../styles/Auth.scss";
 
 const Login = () => {
   const history = useHistory();
+  const { isAuthenticated, isLoading } = useSelector(state => state.auth);
 
   const handleRoute = () => {
     history.push("/signin");
   };
+
+  if (!isLoading && isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Grid container justify="center">
